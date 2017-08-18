@@ -1,0 +1,54 @@
+require 'sass'
+require 'slim'
+require 'fileutils'
+
+class Context
+
+  def css
+    Sass::Engine.for_file('sass/application.sass', {}).render
+  end
+
+  def js
+    "alert('yep')"
+  end
+
+  def author
+    'None'
+  end
+
+  def partial(name, object = self, &block)
+    partials[name].render(object, &block)
+  end
+
+  def pages
+    slim_templates(:pages)
+  end
+
+  def partials
+    slim_templates(:partials)
+  end
+
+  private def slim_templates(folder)
+    Hash[
+      Dir["#{folder}/*.slim"].map do |t|
+        [t[/#{folder}\/(.+)\.slim/, 1], Slim::Template.new { File.read(t) }]
+      end
+    ]
+  end
+
+end
+
+context = Context.new
+
+layout = Slim::Template.new { File.read('layouts/application.slim') }
+Dir["../*.html"].each {|f| FileUtils.mv f, "#{f}.bak" }
+begin
+  puts "Building #{context.pages.keys.join ", "}"
+  context.pages.each_pair do |name, page|
+    File.open("../#{name}.html", 'w') {|f| f.write(layout.render(context) { page.render(context) }) }
+  end
+  Dir["../*.html.bak"].each {|f| FileUtils.rm f}
+rescue Exception => e
+  Dir["../*.html.bak"].each {|f| FileUtils.mv f, f[0..-5] }
+  raise e
+end

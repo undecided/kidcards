@@ -1,0 +1,20 @@
+require 'fssm'
+
+def trigger_build(directory, filename, type)
+  puts "Build triggered by change to #{type} #{filename} (#{directory})"
+  build
+end
+
+def build
+  Dir.chdir('generator') do
+    puts `ruby build`
+  end
+end
+
+build
+
+FSSM.monitor("generator", '**/*', directories: true) do
+  update(&method(:trigger_build))
+  create(&method(:trigger_build))
+  delete(&method(:trigger_build))
+end
