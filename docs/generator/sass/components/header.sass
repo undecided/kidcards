@@ -1,0 +1,24 @@
+header
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  padding: 0.5vh 0.5vw
+
+  .logo
+    &::before
+      content: $scut-ltri
+      display: inline-block
+      padding: 2px
+    &::after
+      content: $scut-rtri
+      display: inline-block
+      padding: 2px
+
+  ul
+    float: right
+    @include scut-list-punctuated("\0020\2022\0020")
+    padding-top: 5px
+
+
+@include scut-sticky-footer-fluid($footer: 'footer')

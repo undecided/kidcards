@@ -1,40 +1,84 @@
 require 'sass'
+require 'sass-globbing'
 require 'slim'
+require 'coffee-script'
 require 'fileutils'
 
+class PartialContext
+
+  def initialize(context, local_context = {})
+    @context = context
+    @local_context = local_context
+  end
+
+  def respond_to?(key)
+    (@local_context.is_a?(Hash) && @local_context.has_key?(meth)) ||
+      (!@local_context.is_a?(Hash) && @local_context.respond_to?(meth)) ||
+      @context.respond_to?(meth)
+  end
+
+  def method_missing(meth, *args, &blk)
+    return @local_context[meth] if @local_context.is_a?(Hash) && @local_context.has_key?(meth)
+    return @local_context.send(meth, *args, &blk) if !@local_context.is_a?(Hash) && @local_context.respond_to?(meth)
+    return @local_context.send(meth, *args, &blk) if !@local_context.is_a?(Hash) && !@context.respond_to?(meth) # local_context might not have a working respond_to?
+    @context.send(meth, *args, &blk)
+  end
+end
+
+
 class Context
+  module Slimmer
+    class << self
+      def slim_templates(folder)
+        Hash[
+          Dir["#{folder}/*.slim"].map do |t|
+            [t[/#{folder}\/(.+)\.slim/, 1], Slim::Template.new(t) { File.read(t) }]
+          end
+        ]
+      end
+
+      def resolve_partial(names)
+        return names if names.is_a? Slim::Template
+        names = [names] unless names.is_a?(Array)
+        leaf = names.pop
+        partials(names)[leaf]
+      end
+
+      def partials(*subfolders)
+        Slimmer.slim_templates(File.join('partials', *subfolders))
+      end
+    end
+  end
 
   def css
     Sass::Engine.for_file('sass/application.sass', {}).render
   end
 
   def js
-    "alert('yep')"
+    (
+      Dir['javascript/*'].map { |f| File.read f } +
+      Dir['coffeescript/*'].map { |f| CoffeeScript.compile(File.read(f), filename: f) }
+    ).join(';')
   end
 
   def author
-    'None'
+    ''
   end
 
-  def partial(name, object = self, &block)
-    partials[name].render(object, &block)
+  def render(template, object = {}, &block)
+    template = Slimmer.resolve_partial(template)
+    template.render(PartialContext.new(self, object), &block)
   end
 
-  def pages
-    slim_templates(:pages)
+  def pages(*subfolders)
+    raise "Cannot call your first folder generator!" if subfolders[0]&.split('/')&.first&.downcase == 'generator'
+    Slimmer.slim_templates(File.join(['pages'] + subfolders))
   end
 
-  def partials
-    slim_templates(:partials)
+  def partials(*subfolders)
+    Slimmer.partials(*subfolders)
   end
 
-  private def slim_templates(folder)
-    Hash[
-      Dir["#{folder}/*.slim"].map do |t|
-        [t[/#{folder}\/(.+)\.slim/, 1], Slim::Template.new { File.read(t) }]
-      end
-    ]
-  end
 
 end
 
@@ -48,7 +92,9 @@ begin
     File.open("../#{name}.html", 'w') {|f| f.write(layout.render(context) { page.render(context) }) }
   end
   Dir["../*.html.bak"].each {|f| FileUtils.rm f}
+  puts "Finished"
 rescue Exception => e
   Dir["../*.html.bak"].each {|f| FileUtils.mv f, f[0..-5] }
+  puts "Failed"
   raise e
 end

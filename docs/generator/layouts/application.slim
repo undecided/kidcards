@@ -1,21 +1,25 @@
 doctype html
 html
   head
-    title Slim Examples
-    meta name="keywords" content="template language"
+    title Example Generated Site
+    meta name="keywords" content="static generator"
     meta name="author" content=author
+    meta charset="utf-8"
     css:
-      #{css}
+      #{{css}}
     javascript:
-      #{js}
+      #{{js}}
 
   body
-    h1 Markup examples
+    .wrapper
+      header
+        strong.logo Simple Generator
+        ul
+          li About
+          li Github
 
-    #content
-      p This example shows you what a basic Slim file looks like.
+      main
+        == yield
 
-      == yield
-
-    div id="footer"
-      = partial 'footer'
+      footer
+        == render 'footer'
