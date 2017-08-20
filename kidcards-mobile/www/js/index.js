@@ -28,7 +28,6 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
         this.receivedEvent('deviceready');
-        this.beginDownload();
     },
 
     // Update DOM on a Received Event
@@ -41,17 +40,6 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
-    },
-
-    beginDownload: function(id) {
-       httpRequest = new XMLHttpRequest();
-       httpRequest.open('GET', URL, true);
-       httpRequest.send();
-       httpRequest.onreadystatechange = function() {
-         if(httpRequest.readyState === XMLHttpRequest.DONE) {
-           document.getElementsByTagName('head')[0].outerHTML = httpRequest.responseText;
-         }
-       };
     }
 };
 

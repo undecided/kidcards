@@ -28,13 +28,31 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data: gap: https://ssl.gstatic.com 'unsafe-eval' ; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:; connect-src 'self' https://undecided.github.com http://localhost:5000 http://192.168.1.66:5000">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
         <script>
-          // window.URL = "https://undecided.github.io/kidcards/phonegap";
-          window.URL = "http://localhost:5000/phonegap";
+          function beginDownload(url) {
+            url = url.split('?')[0] + '?' + parseInt(Math.random() * 999999);
+            alert(url);
+             httpRequest = new XMLHttpRequest();
+             httpRequest.open('GET', url, true);
+             httpRequest.responseType = 'document'
+             httpRequest.send();
+             window.URL = url;
+             httpRequest.onreadystatechange = function() {
+               if(httpRequest.readyState === XMLHttpRequest.DONE) {
+                 Array.prototype.forEach.call(document.childNodes, function(i) {
+                   document.removeChild(i);
+                 });
+                 document.appendChild(httpRequest.responseXML.getElementsByTagName('html')[0]);
+                 Array.prototype.forEach.call(document.getElementsByTagName('script'), function(i) {
+                   eval(i.innerHTML);
+                 });
+               }
+             };
+          }
         </script>
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <title>Hello World</title>
@@ -44,7 +62,21 @@
             <h1>Apache Cordova</h1>
             <div id="deviceready" class="blink">
                 <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+                <p class="event received">
+                  Where shall we fetch from?
+                  <form class="download_url" onsubmit="window.beginDownload(this.url.value);return false">
+                    <input name="url" type="text" value=""><input type="submit">
+                  </form>
+                  <form class="download_url" onsubmit="window.beginDownload(this.url.value);return false">
+                    <input name="url" disabled type="text" value="https://undecided.github.com/phonegap.html"><input type="submit">
+                  </form>
+                  <form class="download_url" onsubmit="window.beginDownload(this.url.value);return false">
+                    <input name="url" disabled type="text" value="http://192.168.1.66:5000/phonegap.html"><input type="submit">
+                  </form>
+                  <form class="download_url" onsubmit="window.beginDownload(this.url.value);return false">
+                    <input name="url" disabled type="text" value="http://localhost:5000/phonegap.html"><input type="submit">
+                  </form>
+                </p>
             </div>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
