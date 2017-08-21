@@ -4,3 +4,15 @@
       li== render(template, full: false)
 
 h1 Phonegap page
+a{href="javascript:void(0)" onclick="window.beginDownload(window.URL)"} reload
+
+coffee:
+  alert(cordova.file)
+  setInterval ->
+    a = Math.random() * 28
+    b = Math.random() * 28
+    c = Math.random() * 28
+    document.body.style.backgroundColor = "rgb(#{parseInt(a) + 228},#{parseInt(b) + 228},#{parseInt(c) + 228})"
+  , 100
+
+h2 Whooo!

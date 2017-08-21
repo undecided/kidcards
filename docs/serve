@@ -3,7 +3,7 @@ require 'fssm'
 output_directory = Dir.pwd
 
 Thread.new do
-  puts `ruby -run -e httpd "#{output_directory}" -p5000`
+  puts `ruby -run -e httpd "#{output_directory}" --bind-address=0.0.0.0 -p5000`
 end
 
 def trigger_build(directory, filename, type)

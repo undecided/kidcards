@@ -157,4 +157,16 @@ footer {
 
 
 }).call(this);
-</script></head><body><div class="wrapper"><header><strong class="logo">Simple Generator</strong><ul><li>About</li><li>Github</li></ul></header><main><h1>Phonegap page</h1></main><footer><p>Copyright  2000-2017</p></footer></div></body></html>
+</script></head><body><div class="wrapper"><header><strong class="logo">Simple Generator</strong><ul><li>About</li><li>Github</li></ul></header><main><div class="phonegap"><ul class="blocky-menu"><li><div class="drawing"><canvas></canvas></div></li></ul></div><h1>Phonegap page</h1><a href="javascript:void(0)" onclick="window.beginDownload(window.URL)">reload</a><script>(function() {
+  alert(cordova.file);
+
+  setInterval(function() {
+    var a, b, c;
+    a = Math.random() * 28;
+    b = Math.random() * 28;
+    c = Math.random() * 28;
+    return document.body.style.backgroundColor = "rgb(" + (parseInt(a) + 228) + "," + (parseInt(b) + 228) + "," + (parseInt(c) + 228) + ")";
+  }, 100);
+
+}).call(this);
+</script><h2>Whooo!</h2></main><footer><p>Copyright  2000-2017</p></footer></div></body></html>
