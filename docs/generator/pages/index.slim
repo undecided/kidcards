@@ -1,32 +1,47 @@
-h1 Welcome home
+header
+  strong.logo Simple Generator
+  ul
+    li About
+    li Github
 
-.listing
-  p As an example, let's show a set of blog posts:
+main
 
-coffee:
-  @show_post = (name)->
-    $('.listing').hide()
-    $('.post').hide()
-    $('.post.' + name).show()
-    false
+  h1 Welcome home
 
-  @show_listing = ->
-    $('.listing').show()
-    $('.post').hide()
-    false
+  .listing
+    p As an example, let's show a set of blog posts:
 
-  $ @show_listing
+  coffee:
+    @show_post = (name)->
+      $('.listing').hide()
+      $('.post').hide()
+      $('.post.' + name).show()
+      false
+
+    @show_listing = ->
+      $('.listing').show()
+      $('.post').hide()
+      false
+
+    $ @show_listing
 
 
-ul.listing
+  ul.listing
+    - partials('blogposts').each_pair do |blog_name, template|
+      - unless blog_name[/^draft/]
+        li
+          == render(template, full_blogpost: false)
+          a{href="##{blog_name}" onclick="show_post('#{blog_name}')"} View post
+
   - partials('blogposts').each_pair do |blog_name, template|
     - unless blog_name[/^draft/]
-      li
-        == render(template, full_blogpost: false)
-        a{href="##{blog_name}" onclick="show_post('#{blog_name}')"} View post
+      .post{class=blog_name}
+        == render(template, full_blogpost: true)
+        a{href="#" onclick='show_listing()'} Show list of posts
 
-- partials('blogposts').each_pair do |blog_name, template|
-  - unless blog_name[/^draft/]
-    .post{class=blog_name}
-      == render(template, full_blogpost: true)
-      a{href="#" onclick='show_listing()'} Show list of posts
+
+
+
+footer
+  == render 'footer'
+
