@@ -1,7 +1,7 @@
 .phonegap
   ul.blocky-menu
     - partials('phonegap').each_pair do |name, template|
-      li== render(template, full: false)
+      == render(template, full: false)
 
 h1 Phonegap page
 a{href="javascript:void(0)" onclick="window.beginDownload(window.URL)"} reload
