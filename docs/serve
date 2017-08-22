@@ -7,6 +7,7 @@ Thread.new do
 end
 
 def trigger_build(directory, filename, type)
+  return if directory[/sass-cache/]
   puts "Build triggered by change to #{type} #{filename} (#{directory})"
   build
 end

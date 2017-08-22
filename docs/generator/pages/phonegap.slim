@@ -1,10 +1,9 @@
 .phonegap
-  ul.blocky-menu
+  ul.menu
     - partials('phonegap').each_pair do |name, template|
-      == render(template, full: false)
-
-h1 Phonegap page
-a{href="javascript:void(0)" onclick="window.beginDownload(window.URL)"} reload
+      li
+        a{data-name=name}
+	  span== render(template, human_name: true)
 
 coffee:
   alert(cordova.file)
@@ -13,5 +12,5 @@ coffee:
     b = Math.random() * 28
     c = Math.random() * 28
     document.body.style.backgroundColor = "rgb(#{parseInt(a) + 228},#{parseInt(b) + 228},#{parseInt(c) + 228})"
-  , 100
+  , 500
 

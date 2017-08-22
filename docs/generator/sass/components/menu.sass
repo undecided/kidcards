@@ -1,0 +1,16 @@
+.menu
+  li
+    @include scut-list-unstyled
+    display: inline-block
+    position: relative
+    width: 44vw
+    height: 30vh
+    margin: 1vh 1vw
+    &:nth-child(2n)
+      border-right: 2px solid red
+    a
+      @include scut-fill
+      background-color: #aabbff
+      border-radius: 10px
+      span
+        @include scut-center-transform
