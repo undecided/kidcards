@@ -9,8 +9,10 @@ onload = () ->
   canvas.width = window.innerWidth
   canvas.height = window.innerHeight
 
-  context.fillStyle = window.paint_colour
   awaiting_bezier = []
+
+  $(".colours span").click (event)->
+    window.paint_colour = event.currentTarget.className
 
   fill_bezier = ()->
     p = awaiting_bezier
@@ -30,6 +32,7 @@ onload = () ->
 
   draw_pixel = (event)->
     return draw_pixel(event.targetTouches[0]) if event.targetTouches?[0]
+    context.fillStyle = window.paint_colour
     rect = event.target.getBoundingClientRect()
     x = event.pageX - rect.left
     y = event.pageY - rect.top

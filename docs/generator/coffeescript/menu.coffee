@@ -6,5 +6,4 @@ $ ->
     # do some kind of transition
     $(event.currentTarget).parents('.menu').hide()
     classname = $(event.currentTarget).data('name')
-    alert classname
     $(".#{classname}").show()

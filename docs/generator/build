@@ -88,14 +88,17 @@ context = Context.new
 layout = Slim::Template.new { File.read('layouts/application.slim') }
 Dir["../*.html"].each {|f| FileUtils.mv f, "#{f}.bak" }
 begin
+  `termux-toast "Compiling..."`
   puts "Building #{context.pages.keys.join ", "}"
   context.pages.each_pair do |name, page|
     File.open("../#{name}.html", 'w') {|f| context.page_name = name; f.write(layout.render(context) { page.render(context) }) }
   end
   Dir["../*.html.bak"].each {|f| FileUtils.rm f}
   puts "Finished"
+  `termux-toast "Finished Compiling"`
 rescue Exception => e
   Dir["../*.html.bak"].each {|f| FileUtils.mv f, f[0..-5] }
   puts "Failed"
+  `termux-toast "FAILED... CHECK"`
   raise e
 end

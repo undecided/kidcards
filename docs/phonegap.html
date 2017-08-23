@@ -116,6 +116,35 @@ h1 {
   position: absolute;
   top: 0;
   left: 0; }
+.drawing .colours {
+  position: absolute;
+  right: 0;
+  top: 0; }
+  .drawing .colours span {
+    display: block;
+    width: 8vw;
+    height: 8vh;
+    margin-top: 2vh;
+    border: 2px groove #999;
+    border-radius: 8px; }
+  .drawing .colours .red {
+    background-color: red; }
+  .drawing .colours .orange {
+    background-color: orange; }
+  .drawing .colours .yellow {
+    background-color: yellow; }
+  .drawing .colours .green {
+    background-color: green; }
+  .drawing .colours .blue {
+    background-color: blue; }
+  .drawing .colours .indigo {
+    background-color: indigo; }
+  .drawing .colours .violet {
+    background-color: violet; }
+  .drawing .colours .black {
+    background-color: black; }
+  .drawing .colours .white {
+    background-color: white; }
 
 header {
   position: absolute;
@@ -219,8 +248,10 @@ body.phonegap div, body.phonegap main {
     is_drawing = false;
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    context.fillStyle = window.paint_colour;
     awaiting_bezier = [];
+    $(".colours span").click(function(event) {
+      return window.paint_colour = event.currentTarget.className;
+    });
     fill_bezier = function() {
       var fn, gap_length, i, j, p, ref;
       p = awaiting_bezier;
@@ -248,6 +279,7 @@ body.phonegap div, body.phonegap main {
       if ((ref = event.targetTouches) != null ? ref[0] : void 0) {
         return draw_pixel(event.targetTouches[0]);
       }
+      context.fillStyle = window.paint_colour;
       rect = event.target.getBoundingClientRect();
       x = event.pageX - rect.left;
       y = event.pageY - rect.top;
@@ -305,15 +337,12 @@ body.phonegap div, body.phonegap main {
       var classname;
       $(event.currentTarget).parents('.menu').hide();
       classname = $(event.currentTarget).data('name');
-      alert(classname);
       return $("." + classname).show();
     });
   });
 
 }).call(this);
-</script></head><body class="phonegap"><div class="wrapper"><div class="phonegap"><ul class="menu"><li><a data-name="drawing"><span>Drawing</span></a></li><li><a data-name="letters"><span>Letters</span></a></li></ul></div><div class="revealable-page drawing"><h2>Drawing</h2><canvas class="drawing-canvas"></canvas></div><div class="revealable-page letters"><h2>Letters</h2><canvas></canvas></div><script>(function() {
-  alert(cordova.file);
-
+</script></head><body class="phonegap"><div class="wrapper"><div class="phonegap"><ul class="menu"><li><a data-name="letters"><span>Letters</span></a></li><li><a data-name="drawing"><span>Drawing</span></a></li></ul></div><div class="revealable-page letters"><h2>Letters</h2><canvas></canvas></div><div class="revealable-page drawing"><h2>Drawing</h2><canvas class="drawing-canvas"></canvas><div class="colours"><span class="red"></span><span class="orange"></span><span class="yellow"></span><span class="green"></span><span class="blue"></span><span class="indigo"></span><span class="violet"></span><span class="black"></span><span class="white"></span></div></div><script>(function() {
   setInterval(function() {
     var a, b, c;
     a = Math.random() * 28;
