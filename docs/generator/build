@@ -5,7 +5,6 @@ require 'coffee-script'
 require 'fileutils'
 
 class PartialContext
-
   def initialize(context, local_context = {})
     @context = context
     @local_context = local_context
@@ -49,6 +48,8 @@ class Context
       end
     end
   end
+  
+  attr_accessor :page_name
 
   def css
     Sass::Engine.for_file('sass/application.sass', {}).render
@@ -89,7 +90,7 @@ Dir["../*.html"].each {|f| FileUtils.mv f, "#{f}.bak" }
 begin
   puts "Building #{context.pages.keys.join ", "}"
   context.pages.each_pair do |name, page|
-    File.open("../#{name}.html", 'w') {|f| f.write(layout.render(context) { page.render(context) }) }
+    File.open("../#{name}.html", 'w') {|f| context.page_name = name; f.write(layout.render(context) { page.render(context) }) }
   end
   Dir["../*.html.bak"].each {|f| FileUtils.rm f}
   puts "Finished"

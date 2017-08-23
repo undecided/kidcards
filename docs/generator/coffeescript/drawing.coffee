@@ -50,3 +50,8 @@ onload = () ->
 
 # document.addEventListener('load', onload)
 $ onload
+$(window).resize ->
+  canvas = $('canvas.drawing-canvas')[0]
+  return unless canvas
+  canvas.width = window.innerWidth
+  canvas.height = window.innerHeight
