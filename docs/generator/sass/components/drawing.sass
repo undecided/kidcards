@@ -5,7 +5,29 @@
     position: absolute
     top: 0
     left: 0
-
+  .sizes
+    text-align: center
+    position: absolute
+    width: 90vw
+    bottom: 10px
+    height: 15vh
+    span
+      width: 10vh
+      height: 10vh
+      display: inline-block
+      span
+        display: inline-block
+        background-color: red
+        border-radius: 100%
+      &[data-size="3"] span
+        width: 5vh
+        height: 5vh
+      &[data-size="12"] span
+        width: 7vh
+        height: 7vh
+      &[data-size="20"] span
+        width: 10vh
+        height: 10vh
   .colours
     position: absolute
     right: 0
@@ -45,5 +67,3 @@
 
     .white
       background-color: white
-
-

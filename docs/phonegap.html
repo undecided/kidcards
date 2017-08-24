@@ -116,6 +116,29 @@ h1 {
   position: absolute;
   top: 0;
   left: 0; }
+.drawing .sizes {
+  text-align: center;
+  position: absolute;
+  width: 90vw;
+  bottom: 10px;
+  height: 15vh; }
+  .drawing .sizes span {
+    width: 10vh;
+    height: 10vh;
+    display: inline-block; }
+    .drawing .sizes span span {
+      display: inline-block;
+      background-color: red;
+      border-radius: 100%; }
+    .drawing .sizes span[data-size="3"] span {
+      width: 5vh;
+      height: 5vh; }
+    .drawing .sizes span[data-size="12"] span {
+      width: 7vh;
+      height: 7vh; }
+    .drawing .sizes span[data-size="20"] span {
+      width: 10vh;
+      height: 10vh; }
 .drawing .colours {
   position: absolute;
   right: 0;
@@ -250,7 +273,13 @@ body.phonegap div, body.phonegap main {
     canvas.height = window.innerHeight;
     awaiting_bezier = [];
     $(".colours span").click(function(event) {
-      return window.paint_colour = event.currentTarget.className;
+      window.paint_colour = event.currentTarget.className;
+      return $(".sizes span span").css({
+        backgroundColor: window.paint_colour
+      });
+    });
+    $(".sizes span").click(function(event) {
+      return window.paint_size = parseInt($(event.currentTarget).data('size'));
     });
     fill_bezier = function() {
       var fn, gap_length, i, j, p, ref;
@@ -342,7 +371,7 @@ body.phonegap div, body.phonegap main {
   });
 
 }).call(this);
-</script></head><body class="phonegap"><div class="wrapper"><div class="phonegap"><ul class="menu"><li><a data-name="letters"><span>Letters</span></a></li><li><a data-name="drawing"><span>Drawing</span></a></li></ul></div><div class="revealable-page letters"><h2>Letters</h2><canvas></canvas></div><div class="revealable-page drawing"><h2>Drawing</h2><canvas class="drawing-canvas"></canvas><div class="colours"><span class="red"></span><span class="orange"></span><span class="yellow"></span><span class="green"></span><span class="blue"></span><span class="indigo"></span><span class="violet"></span><span class="black"></span><span class="white"></span></div></div><script>(function() {
+</script></head><body class="phonegap"><div class="wrapper"><div class="phonegap"><ul class="menu"><li><a data-name="drawing"><span>Drawing</span></a></li><li><a data-name="letters"><span>Letters</span></a></li></ul></div><div class="revealable-page drawing"><h2>Drawing</h2><canvas class="drawing-canvas"></canvas><div class="colours"><span class="red"></span><span class="orange"></span><span class="yellow"></span><span class="green"></span><span class="blue"></span><span class="indigo"></span><span class="violet"></span><span class="black"></span><span class="white"></span></div><div class="sizes"><span data-size="3"><span></span></span><span data-size="12"><span></span></span><span data-size="20"><span></span></span></div></div><div class="revealable-page letters"><h2>Letters</h2><canvas></canvas></div><script>(function() {
   setInterval(function() {
     var a, b, c;
     a = Math.random() * 28;

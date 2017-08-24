@@ -116,6 +116,29 @@ h1 {
   position: absolute;
   top: 0;
   left: 0; }
+.drawing .sizes {
+  text-align: center;
+  position: absolute;
+  width: 90vw;
+  bottom: 10px;
+  height: 15vh; }
+  .drawing .sizes span {
+    width: 10vh;
+    height: 10vh;
+    display: inline-block; }
+    .drawing .sizes span span {
+      display: inline-block;
+      background-color: red;
+      border-radius: 100%; }
+    .drawing .sizes span[data-size="3"] span {
+      width: 5vh;
+      height: 5vh; }
+    .drawing .sizes span[data-size="12"] span {
+      width: 7vh;
+      height: 7vh; }
+    .drawing .sizes span[data-size="20"] span {
+      width: 10vh;
+      height: 10vh; }
 .drawing .colours {
   position: absolute;
   right: 0;
@@ -250,7 +273,13 @@ body.phonegap div, body.phonegap main {
     canvas.height = window.innerHeight;
     awaiting_bezier = [];
     $(".colours span").click(function(event) {
-      return window.paint_colour = event.currentTarget.className;
+      window.paint_colour = event.currentTarget.className;
+      return $(".sizes span span").css({
+        backgroundColor: window.paint_colour
+      });
+    });
+    $(".sizes span").click(function(event) {
+      return window.paint_size = parseInt($(event.currentTarget).data('size'));
     });
     fill_bezier = function() {
       var fn, gap_length, i, j, p, ref;

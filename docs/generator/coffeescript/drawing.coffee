@@ -13,6 +13,10 @@ onload = () ->
 
   $(".colours span").click (event)->
     window.paint_colour = event.currentTarget.className
+    $(".sizes span span").css backgroundColor: window.paint_colour
+
+  $(".sizes span").click (event)->
+    window.paint_size = parseInt($(event.currentTarget).data('size'))
 
   fill_bezier = ()->
     p = awaiting_bezier
