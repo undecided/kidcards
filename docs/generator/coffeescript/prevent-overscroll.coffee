@@ -24,7 +24,7 @@ $ ->
     if(el.offsetHeight < el.scrollHeight)
       evt._isScroller = true
 
-document.body.addEventListener 'touchmove', (evt) ->
-  # In this case, the default behavior is scrolling the body, which
-  # would result in an overflow.  Since we don't want that, we preventDefault.
-  evt.preventDefault() unless evt._isScroller
+  document.body.addEventListener 'touchmove', (evt) ->
+    # In this case, the default behavior is scrolling the body, which
+    # would result in an overflow.  Since we don't want that, we preventDefault.
+    evt.preventDefault() unless evt._isScroller

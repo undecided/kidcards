@@ -386,17 +386,16 @@ body.phonegap {
         return el.scrollTop = top - 1;
       }
     });
-    return el.addEventListener('touchmove', function(evt) {
+    el.addEventListener('touchmove', function(evt) {
       if (el.offsetHeight < el.scrollHeight) {
         return evt._isScroller = true;
       }
     });
-  });
-
-  document.body.addEventListener('touchmove', function(evt) {
-    if (!evt._isScroller) {
-      return evt.preventDefault();
-    }
+    return document.body.addEventListener('touchmove', function(evt) {
+      if (!evt._isScroller) {
+        return evt.preventDefault();
+      }
+    });
   });
 
 }).call(this);
