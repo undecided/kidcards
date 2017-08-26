@@ -1,4 +1,6 @@
 .drawing
+  .selected
+    border: 8px solid black
   h2
     position: absolute
   canvas
@@ -15,10 +17,6 @@
       width: 10vh
       height: 10vh
       display: inline-block
-      span
-        display: inline-block
-        background-color: red
-        border-radius: 100%
       &.small span
         width: 5vh
         height: 5vh
@@ -28,6 +26,10 @@
       &.large span
         width: 10vh
         height: 10vh
+      span
+        display: inline-block
+        background-color: red
+        border-radius: 100%
   .colours
     position: absolute
     right: 0
@@ -40,30 +42,28 @@
       margin-top: 2vh
       border: 2px groove #999
       border-radius: 8px
+      &.selected
+        @extend .selected
 
-    .red
+    span.red
       background-color: red
-
-    .orange
+    span.orange
       background-color: orange
-
-    .yellow
+    span.yellow
       background-color: yellow
-
-    .green
+    span.green
       background-color: green
-
-    .blue
+    span.blue
       background-color: blue
-
-    .indigo
+    span.indigo
       background-color: indigo
-
-    .violet
+      &.selected
+        border-color: red
+    span.violet
       background-color: violet
-
-    .black
+    span.black
       background-color: black
-
-    .white
+      &.selected
+        border-color: red
+    span.white
       background-color: white

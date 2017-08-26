@@ -110,6 +110,8 @@ h2 {
 h1 {
   font-size: 2.5em; }
 
+.drawing .selected, .drawing .colours span.selected {
+  border: 8px solid black; }
 .drawing h2 {
   position: absolute; }
 .drawing canvas {
@@ -126,10 +128,6 @@ h1 {
     width: 10vh;
     height: 10vh;
     display: inline-block; }
-    .drawing .sizes span span {
-      display: inline-block;
-      background-color: red;
-      border-radius: 100%; }
     .drawing .sizes span.small span {
       width: 5vh;
       height: 5vh; }
@@ -139,6 +137,10 @@ h1 {
     .drawing .sizes span.large span {
       width: 10vh;
       height: 10vh; }
+    .drawing .sizes span span {
+      display: inline-block;
+      background-color: red;
+      border-radius: 100%; }
 .drawing .colours {
   position: absolute;
   right: 0;
@@ -150,23 +152,27 @@ h1 {
     margin-top: 2vh;
     border: 2px groove #999;
     border-radius: 8px; }
-  .drawing .colours .red {
+  .drawing .colours span.red {
     background-color: red; }
-  .drawing .colours .orange {
+  .drawing .colours span.orange {
     background-color: orange; }
-  .drawing .colours .yellow {
+  .drawing .colours span.yellow {
     background-color: yellow; }
-  .drawing .colours .green {
+  .drawing .colours span.green {
     background-color: green; }
-  .drawing .colours .blue {
+  .drawing .colours span.blue {
     background-color: blue; }
-  .drawing .colours .indigo {
+  .drawing .colours span.indigo {
     background-color: indigo; }
-  .drawing .colours .violet {
+    .drawing .colours span.indigo.selected {
+      border-color: red; }
+  .drawing .colours span.violet {
     background-color: violet; }
-  .drawing .colours .black {
+  .drawing .colours span.black {
     background-color: black; }
-  .drawing .colours .white {
+    .drawing .colours span.black.selected {
+      border-color: red; }
+  .drawing .colours span.white {
     background-color: white; }
 
 header {
@@ -274,12 +280,16 @@ body.phonegap {
     awaiting_bezier = [];
     $(".colours span").click(function(event) {
       window.paint_colour = event.currentTarget.className;
-      return $(".sizes span span").css({
+      $(".sizes span span").css({
         backgroundColor: window.paint_colour
       });
+      $('.colours .selected').removeClass('selected');
+      return $(event.currentTarget).addClass('selected');
     });
-    $(".sizes span").click(function(event) {
-      return window.paint_size = parseInt($(event.currentTarget).data('size'));
+    $(".sizes span span").click(function(event) {
+      window.paint_size = parseInt($(event.currentTarget).data('size'));
+      $('.sizes .selected').removeClass('selected');
+      return $(event.currentTarget).addClass('selected');
     });
     fill_bezier = function() {
       var fn, gap_length, i, j, p, ref;
@@ -399,7 +409,7 @@ body.phonegap {
   });
 
 }).call(this);
-</script></head><body class="phonegap"><div class="wrapper"><div class="phonegap"><ul class="menu"><li><a data-name="drawing"><span>Drawing</span></a></li></ul></div><div class="revealable-page drawing"><h2>Drawing</h2><canvas class="drawing-canvas"></canvas><div class="colours"><span class="red"></span><span class="orange"></span><span class="yellow"></span><span class="green"></span><span class="blue"></span><span class="indigo"></span><span class="violet"></span><span class="black"></span><span class="white"></span></div><div class="sizes"><span class="small" data-size="3"><span></span></span><span class="medium" data-size="20"><span></span></span><span class="large" data-size="40"><span></span></span></div></div><script>(function() {
+</script></head><body class="phonegap"><div class="wrapper"><div class="phonegap"><ul class="menu"><li><a data-name="drawing"><span>Drawing</span></a></li></ul></div><div class="revealable-page drawing"><h2>Drawing</h2><canvas class="drawing-canvas"></canvas><div class="colours"><span class="red selected"></span><span class="orange"></span><span class="yellow"></span><span class="green"></span><span class="blue"></span><span class="indigo"></span><span class="violet"></span><span class="black"></span><span class="white"></span></div><div class="sizes"><span class="small" data-size="3"><span class="selected"></span></span><span class="medium" data-size="20"><span></span></span><span class="large" data-size="40"><span></span></span></div></div><script>(function() {
   setInterval(function() {
     var a, b, c;
     a = Math.random() * 28;

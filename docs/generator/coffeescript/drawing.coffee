@@ -14,9 +14,13 @@ onload = () ->
   $(".colours span").click (event)->
     window.paint_colour = event.currentTarget.className
     $(".sizes span span").css backgroundColor: window.paint_colour
+    $('.colours .selected').removeClass('selected')
+    $(event.currentTarget).addClass('selected')
 
-  $(".sizes span").click (event)->
+  $(".sizes span span").click (event)->
     window.paint_size = parseInt($(event.currentTarget).data('size'))
+    $('.sizes .selected').removeClass('selected')
+    $(event.currentTarget).addClass('selected')
 
   fill_bezier = ()->
     p = awaiting_bezier
