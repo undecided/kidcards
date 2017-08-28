@@ -18,7 +18,7 @@ onload = () ->
     $(event.currentTarget).addClass('selected')
 
   $(".sizes span span").click (event)->
-    window.paint_size = parseInt($(event.currentTarget).data('size'))
+    window.paint_size = parseInt($(event.currentTarget).parent().data('size'))
     $('.sizes .selected').removeClass('selected')
     $(event.currentTarget).addClass('selected')
 
@@ -59,7 +59,6 @@ onload = () ->
   document.addEventListener('mouseup', stop_draw)
   document.addEventListener('touchend', stop_draw)
 
-# document.addEventListener('load', onload)
 $ onload
 $(window).resize ->
   canvas = $('canvas.drawing-canvas')[0]

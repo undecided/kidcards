@@ -9,7 +9,14 @@
     "installed_plugins": {
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "eu.blltd.kidcards"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "eu.blltd.kidcards"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "eu.blltd.kidcards"
+        }
+    }
 }
