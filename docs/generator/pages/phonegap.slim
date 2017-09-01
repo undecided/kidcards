@@ -5,10 +5,22 @@
         a{data-name=name}
           span== render(template, human_name: true)
 
+  .config_button
+    a{data-name='configuration_submenu'} Config
+
+ul.revealable-page.submenu{class='configuration_submenu'}
+  - partials('configuration').each_pair do |name, template|
+    li
+      a{data-name=name}
+        span== render(template, human_name: true)
 
 
 - partials('phonegap').each_pair do |name, template|
   .revealable-page{class=name}== render(template, human_name: false)
+
+- partials('configuration').each_pair do |name, template|
+  .revealable-page{class=name}== render(template, human_name: false)
+
 
 coffee:
   #alert(cordova.file)
