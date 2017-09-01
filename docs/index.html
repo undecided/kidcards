@@ -216,7 +216,7 @@ footer {
   display: table-row;
   height: 1px; }
 
-.menu li {
+ul.menu li, ul.submenu li {
   list-style-type: none;
   padding-left: 0;
   margin-top: 0;
@@ -226,25 +226,28 @@ footer {
   width: 44vw;
   height: 30vh;
   margin: 1vh 1vw; }
-  .menu li a {
+ul.menu a, ul.submenu a {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #aabbff;
+  border-radius: 10px; }
+  ul.menu a span, ul.submenu a span {
     position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #aabbff;
-    border-radius: 10px; }
-    .menu li a span {
-      position: absolute;
-      top: 50%;
-      margin-top: auto;
-      margin-bottom: auto;
-      left: 50%;
-      margin-left: auto;
-      margin-right: auto;
-      -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%); }
+    top: 50%;
+    margin-top: auto;
+    margin-bottom: auto;
+    left: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); }
+
+ul.submenu a {
+  background-color: #ffaabb; }
 
 .revealable-page {
   display: none; }
@@ -373,14 +376,15 @@ body.phonegap {
 ;(function() {
   $(function() {
     var menu_items;
-    menu_items = $('ul.menu a');
+    menu_items = $('a.forward');
     if (menu_items.length === 0) {
       return;
     }
     return menu_items.click(function(event) {
-      var classname;
-      $(event.currentTarget).parents('.menu').hide();
-      classname = $(event.currentTarget).data('name');
+      var classname, self;
+      self = $(event.currentTarget);
+      $(self.data('hide')).hide();
+      classname = self.data('name');
       return $("." + classname).show();
     });
   });

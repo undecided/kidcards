@@ -1,4 +1,4 @@
-.menu
+ul.menu, ul.submenu
   li
     @include scut-list-unstyled
     display: inline-block
@@ -6,12 +6,16 @@
     width: 44vw
     height: 30vh
     margin: 1vh 1vw
-    a
-      @include scut-fill
-      background-color: #aabbff
-      border-radius: 10px
-      span
-        @include scut-center-transform
+  a
+    @include scut-fill
+    background-color: #aabbff
+    border-radius: 10px
+    span
+      @include scut-center-transform
+
+ul.submenu a
+  background-color: #ffaabb
+
 
 .revealable-page
   display: none

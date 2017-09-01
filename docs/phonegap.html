@@ -216,7 +216,7 @@ footer {
   display: table-row;
   height: 1px; }
 
-.menu li {
+ul.menu li, ul.submenu li {
   list-style-type: none;
   padding-left: 0;
   margin-top: 0;
@@ -226,25 +226,28 @@ footer {
   width: 44vw;
   height: 30vh;
   margin: 1vh 1vw; }
-  .menu li a {
+ul.menu a, ul.submenu a {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #aabbff;
+  border-radius: 10px; }
+  ul.menu a span, ul.submenu a span {
     position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #aabbff;
-    border-radius: 10px; }
-    .menu li a span {
-      position: absolute;
-      top: 50%;
-      margin-top: auto;
-      margin-bottom: auto;
-      left: 50%;
-      margin-left: auto;
-      margin-right: auto;
-      -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%); }
+    top: 50%;
+    margin-top: auto;
+    margin-bottom: auto;
+    left: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); }
+
+ul.submenu a {
+  background-color: #ffaabb; }
 
 .revealable-page {
   display: none; }
@@ -373,14 +376,15 @@ body.phonegap {
 ;(function() {
   $(function() {
     var menu_items;
-    menu_items = $('ul.menu a');
+    menu_items = $('a.forward');
     if (menu_items.length === 0) {
       return;
     }
     return menu_items.click(function(event) {
-      var classname;
-      $(event.currentTarget).parents('.menu').hide();
-      classname = $(event.currentTarget).data('name');
+      var classname, self;
+      self = $(event.currentTarget);
+      $(self.data('hide')).hide();
+      classname = self.data('name');
       return $("." + classname).show();
     });
   });
@@ -414,7 +418,7 @@ body.phonegap {
   });
 
 }).call(this);
-</script></head><body class="phonegap"><div class="wrapper"><div class="phonegap"><ul class="menu"><li><a data-name="drawing"><span>Drawing</span></a></li></ul></div><div class="revealable-page drawing"><h2>Drawing</h2><canvas class="drawing-canvas"></canvas><div class="colours"><span class="red selected"></span><span class="orange"></span><span class="yellow"></span><span class="green"></span><span class="blue"></span><span class="indigo"></span><span class="violet"></span><span class="black"></span><span class="white"></span></div><div class="sizes"><span class="small" data-size="3"><span class="selected"></span></span><span class="medium" data-size="20"><span></span></span><span class="large" data-size="40"><span></span></span></div></div><script>(function() {
+</script></head><body class="phonegap"><div class="wrapper"><div class="main-menu"><ul class="menu"><li><a class="forward" data-hide=".main-menu" data-name="drawing"><span>Drawing</span></a></li></ul><div class="config_button"><a class="forward" data-hide=".main-menu" data-name="configuration_submenu">Config</a></div></div><ul class="revealable-page submenu configuration_submenu"><li><a data-name="update_card_library"><span>Update card library</span></a></li></ul><div class="revealable-page drawing"><h2>Drawing</h2><canvas class="drawing-canvas"></canvas><div class="colours"><span class="red selected"></span><span class="orange"></span><span class="yellow"></span><span class="green"></span><span class="blue"></span><span class="indigo"></span><span class="violet"></span><span class="black"></span><span class="white"></span></div><div class="sizes"><span class="small" data-size="3"><span class="selected"></span></span><span class="medium" data-size="20"><span></span></span><span class="large" data-size="40"><span></span></span></div></div><div class="revealable-page update_card_library">CARD LIBRAREEEEEE</div><script>(function() {
   setInterval(function() {
     var a, b, c;
     a = Math.random() * 28;

@@ -1,12 +1,12 @@
-.phonegap
+.main-menu
   ul.menu
     - partials('phonegap').each_pair do |name, template|
       li
-        a{data-name=name}
+        a.forward{data-name=name data-hide='.main-menu'}
           span== render(template, human_name: true)
 
   .config_button
-    a{data-name='configuration_submenu'} Config
+    a.forward{data-name='configuration_submenu' data-hide='.main-menu'} Config
 
 ul.revealable-page.submenu{class='configuration_submenu'}
   - partials('configuration').each_pair do |name, template|
