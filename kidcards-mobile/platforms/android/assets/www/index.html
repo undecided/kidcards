@@ -35,7 +35,7 @@
         <script>
           function beginDownload(url) {
             url = url.split('?')[0] + '?' + parseInt(Math.random() * 999999);
-            alert(url);
+            console.log(url);
              httpRequest = new XMLHttpRequest();
              httpRequest.open('GET', url, true);
              httpRequest.responseType = 'document'
@@ -52,7 +52,10 @@
                  });
                }
              };
-          }
+          };
+
+          document.addEventListener('deviceready', function() { document.body.innerHTML = ''; window.beginDownload("https://undecided.github.io/kidcards/phonegap.html"); }, false);
+
         </script>
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <title>Hello World</title>
