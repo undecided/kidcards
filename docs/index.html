@@ -287,6 +287,9 @@ body.phonegap {
     canvas.height = window.innerHeight;
     awaiting_bezier = [];
     $(".colours span").click(function(event) {
+      if ($(event.currentTarget).hasClass('selected')) {
+        return;
+      }
       window.paint_colour = event.currentTarget.className;
       $(".sizes span span").css({
         backgroundColor: window.paint_colour

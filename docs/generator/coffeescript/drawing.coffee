@@ -12,6 +12,7 @@ onload = () ->
   awaiting_bezier = []
 
   $(".colours span").click (event)->
+    return if $(event.currentTarget).hasClass('selected')
     window.paint_colour = event.currentTarget.className
     $(".sizes span span").css backgroundColor: window.paint_colour
     $('.colours .selected').removeClass('selected')

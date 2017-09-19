@@ -35,7 +35,6 @@
         <script>
           function beginDownload(url) {
             url = url.split('?')[0] + '?' + parseInt(Math.random() * 999999);
-            console.log(url);
              httpRequest = new XMLHttpRequest();
              httpRequest.open('GET', url, true);
              httpRequest.responseType = 'document'
@@ -46,7 +45,14 @@
                  Array.prototype.forEach.call(document.childNodes, function(i) {
                    document.removeChild(i);
                  });
-                 document.appendChild(httpRequest.responseXML.getElementsByTagName('html')[0]);
+                 var html = http.responseXML;
+                 if(html && html.getElementsByTagName('html')) {
+                   localStorage['remote-html'] = html.innerHTML;
+                 } else {
+	           alert("couldn't fetch; no internet?");
+	           html = localStorage['remote-html'];
+                 }
+                 document.getElementsByTagName('html')[0].innerHTML = html;
                  Array.prototype.forEach.call(document.getElementsByTagName('script'), function(i) {
                    eval(i.innerHTML);
                  });
