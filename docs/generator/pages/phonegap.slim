@@ -11,7 +11,7 @@
 ul.revealable-page.submenu{class='configuration_submenu'}
   - partials('configuration').each_pair do |name, template|
     li
-      a{data-name=name}
+      a.forward{data-name=name}
         span== render(template, human_name: true)
 
 
