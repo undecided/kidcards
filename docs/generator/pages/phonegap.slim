@@ -1,25 +1,25 @@
 .main-menu
   ul.menu
-    - partials('phonegap').each_pair do |name, template|
+    - partials('sections').each_pair do |name, template|
       li
         a.forward{data-name=name data-hide='.main-menu'}
-          span== render(template, human_name: true)
+          span== render(template, title_only: true)
 
   .config_button
     a.forward{data-name='configuration_submenu' data-hide='.main-menu'} Config
 
-ul.revealable-page.submenu{class='configuration_submenu'}
+ul.revealable-page.submenu.configuration_submenu
   - partials('configuration').each_pair do |name, template|
     li
-      a.forward{data-name=name}
-        span== render(template, human_name: true)
+      a.forward{data-name=name data-hide='.configuration_submenu'}
+        span== render(template, title_only: true)
 
 
-- partials('phonegap').each_pair do |name, template|
-  .revealable-page{class=name}== render(template, human_name: false)
+- partials('sections').each_pair do |name, template|
+  .revealable-page{class=name}== render(template, title_only: false)
 
 - partials('configuration').each_pair do |name, template|
-  .revealable-page{class=name}== render(template, human_name: false)
+  .revealable-page{class=name}== render(template, title_only: false)
 
 
 coffee:

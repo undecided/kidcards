@@ -1,4 +1,11 @@
-- if human_name
+- if title_only
    | Update card library
 - else
-  | CARD LIBRAREEEEEE
+  h2 CARD LIBRAREEEEEE
+  javascript:
+    Storage.set('hi', 'hiya', function(x) { alert('set ' +x) })
+    Storage.get('hi', function(x) { alert('get ' +x) })
+    Storage.setJson('hi', {there: 'world'}, function(x) { alert('set ' +x) })
+    Storage.getJson('hi', function(x) { alert('get there: ' +x['there']) })
+
+    
