@@ -23,7 +23,11 @@
         },
         "platforms": [
             "android",
-            "ios"
+            "ios",
+            "browser"
         ]
+    },
+    "devDependencies": {
+        "cordova-browser": "^7.0.0"
     }
 }
