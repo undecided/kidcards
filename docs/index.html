@@ -249,9 +249,9 @@ footer {
 .revealable-page {
   display: none; }
 
-body.phonegap {
+body.index {
   overflow: hidden; }
-  body.phonegap div, body.phonegap main {
+  body.index div, body.index main {
     padding: 0;
     margin: 0; }
 </style><script>/* Zepto v1.2.0 - zepto event ajax form ie - zeptojs.com/license */
@@ -417,28 +417,14 @@ body.phonegap {
   });
 
 }).call(this);
-</script></head><body class="index"><div class="wrapper"><header><strong class="logo">Simple Generator</strong><ul><li>About</li><li>Github</li></ul></header><main><h1>Welcome home</h1><div class="listing"><p>As an example, let's show a set of blog posts:</p></div><script>(function() {
-  this.show_post = function(name) {
-    $('.listing').hide();
-    $('.post').hide();
-    $('.post.' + name).show();
-    return false;
-  };
-
-  this.show_listing = function() {
-    $('.listing').show();
-    $('.post').hide();
-    return false;
-  };
-
-  $(this.show_listing);
+</script></head><body class="index"><div class="wrapper"><div class="phonegap"><ul class="menu"><li><a data-name="drawing"><span>Drawing</span></a></li></ul></div><div class="revealable-page drawing"><canvas class="drawing-canvas"></canvas><div class="colours"><span class="red selected"></span><span class="orange"></span><span class="yellow"></span><span class="green"></span><span class="blue"></span><span class="indigo"></span><span class="violet"></span><span class="black"></span><span class="white"></span></div><div class="sizes"><span class="small" data-size="3"><span class="selected"></span></span><span class="medium" data-size="20"><span></span></span><span class="large" data-size="40"><span></span></span></div></div><script>(function() {
+  setInterval(function() {
+    var a, b, c;
+    a = Math.random() * 28;
+    b = Math.random() * 28;
+    c = Math.random() * 28;
+    return document.body.style.backgroundColor = "rgb(" + (parseInt(a) + 228) + "," + (parseInt(b) + 228) + "," + (parseInt(c) + 228) + ")";
+  }, 500);
 
 }).call(this);
-</script><ul class="listing"><li><h2>Happy new millenium folks!</h2><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><a href="#live_2000_01_01_happy_new_millenium" onclick="show_post(&#39;live_2000_01_01_happy_new_millenium&#39;)">View post</a></li></ul><div class="post live_2000_01_01_happy_new_millenium"><h2>Happy new millenium folks!</h2><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><p>Duis aute
-irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-deserunt mollit anim id est laborum.</p><a href="#" onclick="show_listing()">Show list of posts</a></div></main><footer><p>Copyright  2000-2024</p></footer></div></body></html>
+</script></div></body></html>
