@@ -11,12 +11,16 @@ onload = () ->
 
   awaiting_bezier = []
 
+  $(".colours.closed span").click (event)->
+    $(".colours.closed").removeClass("closed")
+
   $(".colours span").click (event)->
     return if $(event.currentTarget).hasClass('selected')
     window.paint_colour = event.currentTarget.className
     $(".sizes span span").css backgroundColor: window.paint_colour
     $('.colours .selected').removeClass('selected')
     $(event.currentTarget).addClass('selected')
+    $(".colours").addClass("closed")
 
   $(".sizes span span").click (event)->
     window.paint_size = parseInt($(event.currentTarget).parent().data('size'))
