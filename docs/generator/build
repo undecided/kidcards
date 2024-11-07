@@ -24,7 +24,6 @@ class PartialContext
   end
 end
 
-
 class Context
   module Slimmer
     class << self
@@ -48,8 +47,14 @@ class Context
       end
     end
   end
-  
+
   attr_accessor :page_name
+
+  def depth_first(path_arr)
+    path_arr.sort.reverse.sort_by do |p|
+      p.split("/").count
+    end.reverse
+  end
 
   def css
     Sass::Engine.for_file('sass/application.sass', {}).render
@@ -57,8 +62,8 @@ class Context
 
   def js
     (
-      Dir['javascript/*'].map { |f| File.read f } +
-      Dir['coffeescript/*'].map { |f| CoffeeScript.compile(File.read(f), filename: f) }
+      depth_first(Dir['javascript/*']).map { |f| File.read f } +
+      depth_first(Dir['coffeescript/**/*.coffee']).map { |f| CoffeeScript.compile(File.read(f), filename: f) }
     ).join(';')
   end
 
